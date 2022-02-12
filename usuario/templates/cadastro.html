@@ -1,0 +1,123 @@
+{% extends 'base.html' %} 
+
+{% load static %}
+
+{% block 'header' %}
+<link rel="stylesheet" href="{% static 'inicio/cadastro.css' %}">
+{% endblock %}
+
+
+{% block 'titulo' %}
+    cadastro
+{% endblock %}
+
+{% block 'corpo' %}
+
+<div class="container-fluid"> 
+    <div class="row"> 
+        <div class="col-md-3 sidebar">
+            <div class="logo_sidebar"> 
+                
+            </div>
+
+            <div class="corpo_sidebar">
+                <div> 
+                    {% if status == '1' %}
+                    
+                    <div class="alert alert-danger" role="alert">
+                        Os campos não podem ser vázios
+                      </div>
+                    
+                    {% endif %}
+
+                    {% if status == '2' %}
+                    
+                    <div class="alert alert-danger" role="alert">
+                        A senha deve ter entre 8 a 12 caracteres
+                      </div>
+                    
+                    {% endif %}
+
+                    {% if status == '3' %}
+                    
+                    <div class="alert alert-danger" role="alert">
+                        O usuario já existe no sistema
+                      </div>
+                    
+                    {% endif %}
+
+                    {% if status == '4' %}
+                    
+                    <div class="alert alert-success" role="alert">
+                        Cadastro feito com sucesso
+                      </div>
+                    
+                    {% endif %}
+
+                    {% if status == '5' %}
+                    
+                    <div class="alert alert-danger" role="alert">
+                       Erro no sistema tente mais tarde
+                      </div>
+                    
+                    {% endif %}
+
+                    {% if status == '6' %}
+                    
+                    <div class="alert alert-danger" role="alert">
+                       Você deve se cadastrar no sistema
+                      </div>
+                    
+                    {% endif %}
+
+                    {% if status == '7' %}
+                    
+                    <div class="alert alert-primary" role="alert">
+                        Primeiro vamos fazer seu cadastro para assim garantir sua bolsa
+                      </div>
+                    
+                    {% endif %}
+
+
+                    <br><br>
+
+                    
+                    <h2 class="titulo cor_branca">Cadastre-se</h2>
+                </div>
+
+                <div>
+                    
+                    <br><br><br>
+                    <a class="btn_logar" href="{% url 'login' %}">Fazer login</a>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <div class="area_cadastrar">
+            
+                <form action="{% url 'valida_cadastro' %}" method="POST">{% csrf_token %}
+                    <h2 class="titulo_area_cadastrar">Cadastre-se</h2>
+                    <br>
+                    <input name="nome" class="input_cadastrar input_cadastrar_nome" type="text" placeholder="Usuario...">
+                    <br>
+                    <br>
+                    <input name="email" class="input_cadastrar input_cadastrar_email" type="text" placeholder="Email...">
+                    <br>
+                    <br>
+                    <input name="senha" class="input_cadastrar input_cadastrar_senha" type="password" placeholder="Senha...">
+                    <br>
+                    <input class="btn_cadastrar" type="submit" value="Cadastrar">
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+{% endblock %}

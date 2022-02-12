@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block 'header' %}
+<link rel="stylesheet" href="{% static 'inicio/cadastro.css' %}">
+{% endblock %}
+
+
+{% block 'titulo' %}
+    login
+{% endblock %}
+
+
+{% block 'corpo' %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3 sidebar">
+            <div class="logo_sidebar">
+              
+            </div>
+
+            <div class="corpo_sidebar">
+                <div>
+                    {% if status == '1' %}
+                    
+                    <div class="alert alert-danger" role="alert">
+                        Os campos não podem ser vázios
+                      </div>
+                    
+                    {% endif %}
+
+                    {% if status == '2' %}
+                    
+                    <div class="alert alert-danger" role="alert">
+                       A senha deve ter entre 8 a 12 caracteres
+                      </div>
+                    
+                    {% endif %}
+
+                    {% if status == '3' %}
+                    
+                    <div class="alert alert-danger" role="alert">
+                      este usuario não existe no sistema, você deve se cadastrar 
+                      </div>
+                    
+                    {% endif %}
+
+                    <br><br>
+                    <h2 class="titulo cor_branca">Login</h2>
+                </div>
+
+                <div>
+                    <br>
+                    <br>
+                    <a class="btn_logar" href="{% url 'cadastro' %}">Cadastre-se</a>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <div class="area_cadastrar">
+                <h2 class="titulo_area_cadastrar">Login</h2>
+               
+                <br>
+                <br>
+                <form action="{% url 'valida_login' %}" method="POST" >{% csrf_token %}
+                    <input name="email" class="input_cadastrar input_cadastrar_email" type="text" placeholder="email...">
+                    <br>
+                    <br>
+                    <input name="senha" class="input_cadastrar input_cadastrar_senha" type="password" placeholder="Senha...">
+                    <br>
+                    <input class="btn_cadastrar" type="submit" value="Fazer login">
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+{% endblock %}

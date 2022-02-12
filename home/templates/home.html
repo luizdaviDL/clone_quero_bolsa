@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+
+
+{% block 'titulo' %}
+    home
+{% endblock %}
+
+{% block 'corpo' %}
+
+<div class="corpo">
+    <br>
+<div  class="container"><br>
+    {% if status == '1' %}
+    
+    <div class="alert alert-primary" role="alert">
+        Cadastro realizado com sucesso, nossa equipe entrará
+         em contato com você através dos dados de comunicação cadastrados
+      </div>
+    
+    {% endif %}
+    <!---------------------------->
+    
+    <div class="row">
+        {% for i in cursos %} 
+        <div class="col md-3">
+           <div class="card" style="width: 18rem; margin-bottom: 20px;">
+                <img src="{{i.img.url}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">{{i.curso}}</h5>
+                  <p class="card-text">{{i.get_tipo_display}}</p> <!---  esse display serve para pegar os dados da choices por completo  ---------->
+                  <p>{{i.duracao}}</p>
+                  <p>{{i.get_modalidade_display}}</p>
+                  <p>{{i.get_turno}}</p>
+                  <h5> R$ {{i.valor}}</h5>
+                        <br>
+                  <a href="{% url 'detalhes' i.id %}" class="btn btn-success">Ver mais</a>
+                </div>
+              </div>
+        </div>
+        {% endfor %}       
+    </div>
+</div>
+</div>
+
+{% endblock %}

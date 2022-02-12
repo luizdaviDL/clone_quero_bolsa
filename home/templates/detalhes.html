@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block 'titulo' %}
+    detalhes
+{% endblock %}
+
+{% block 'corpo' %}
+<div class="container">
+    <br>
+
+{% for i in curso_dt %}
+    <h1 style="color: #304ffe">{{i.universidade}}</h1>
+    <br>
+    <img style="height: 100px;" src="{{i.img.url}}" >
+    <h1>{{i.curso}}</h1>
+    <p>{{i.get_tipo_display}}</p>
+    <p>{{i.universidade.cidade}}</p>
+    <h4>{{i.universidade.bairro}}, {{i.universidade.numero}}, {{i.universidade.cidade_estado}}</h4>
+    <hr >
+    <form action="{% url 'garantir_bolsa' i.id %}" method="POST">{% csrf_token %}
+        <h3>{{i.get_modalidade_display}}</h3>
+        {% if i.duracao%}
+            <p>1º semestre de 2022 • {{i.duracao}}</p>
+        {% else %}
+           <p> {{i.duracao}}</p>
+        {% endif %} 
+
+        <h3>R$ {{i.valor}}</h3>
+        <br>
+        <button style="margin-left: 160px;" type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModalLong">
+            Ver avisos importantes
+        </button> <br><br>
+        <!---------------------------->
+        <button style="margin-left: 160px;" href="" class="btn btn-success" >Garantir essa bolsa</button>
+    </form>
+
+
+<!------ Modal  -------------------->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Avisos</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{i.aviso}}
+      </div>
+      
+    </div>
+  </div>
+</div>
+<!------------------------------>        
+    
+
+{% endfor %}
+</div>
+  
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block 'header' %}
+    <script src="{% static 'garantir/garantir.js' %}"></script>
+{% endblock %}
+
+{% block 'titulo' %}
+    dados do aluno
+{% endblock %} 
+
+{% block 'corpo' %}
+{% for i in curso %}
+<div class="container-fluid">
+<div class="row"> 
+<div style="padding-left: 20px;" class="col-md-3 ">
+
+                
+      
+    <img style="height: 100px;"  src="{{i.img.url}}"> <h2>{{i.curso}}</h2><br>
+    <h3>Mensalidade com {{i.universidade}}</h3> <h3 style="color: rgb(9, 95, 9);">R$ {{i.valor}}</h3> <br>    
+    <h3>Desconto da bolsa</h3> <h3 style="color: rgb(9, 95, 9);">{{i.desconto}} %</h3>
+    <br>
+</div>  
+
+<div style="padding-left: 20px;" class="col-md-9">
+    <H1>Dados do aluno</H1>
+    <form action="{% url 'cadastro_bolsa' i.id %}" method="POST">{% csrf_token %}
+    <label>Nome completo</label>  <br> 
+     <input class="form-control" type="text" style="width: 500px;" placeholder="Ex: João Costa" name="nome" required>
+     <br>
+     <label>CPF</label>  <br> 
+     <input  class="form-control" type="text" autocomplete="of" maxlength="11" style="width: 500px;" placeholder="Ex: 000.000.000-00" name="cpf" required>
+     <br>
+     <label>Data de nascimento</label>  <br> 
+     <input  class="form-control" type="text" autocomplete="of" maxlength="8" style="width: 500px;" placeholder="Ex: dd/mm/aaaa" name="nascimento" required>
+     <br>
+     <label>E-mail</label>  <br> 
+     <input  class="form-control" type="email"  style="width: 500px;" placeholder="Ex: joaodavis@hotmail.com" name="email" required>
+     <br>
+     <label>CEP</label>  <br> 
+     <input class="form-control" type="text"  autocomplete="of" maxlength="8" style="width: 500px;" placeholder="Digite o cep" name="cep" required>
+     <br>
+     <label>Cidade</label>  <br> 
+     <input class="form-control" type="text"  autocomplete="of"  style="width: 500px;" placeholder="Nome da cidade ..." name="cidade" required>
+     <br>
+     <label>Estado</label>  <br> 
+     <input class="form-control" type="text"  autocomplete="of" style="width: 500px;" placeholder="Nome do estado ..." name="estado" required>
+     <br> 
+
+     <button style="width: 300px; margin-left: 200px;" class="btn btn-warning" >Enviar dados</button>
+
+     <!---------->
+     
+     <input type="hidden" value="{{i.curso}}" name="curso">
+     
+     <input type="hidden" value="{{i.universidade.id}}" name="universidade">
+ 
+     <!---------->
+    </form>
+</div>
+
+</div>
+</div>   
+{% endfor %}
+{% endblock %}
